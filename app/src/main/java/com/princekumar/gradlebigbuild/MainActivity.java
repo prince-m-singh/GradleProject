@@ -1,5 +1,6 @@
 package com.princekumar.gradlebigbuild;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.princekumar.jokesdisplay.ViewJokeActivity;
 import com.udacity.gradle.builditbigger.R;
 
 import static com.princekumar.jokelib.JokesMyClass.getRandomJoke;
@@ -44,7 +46,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
+/*
         Toast.makeText(this, getRandomJoke(), Toast.LENGTH_SHORT).show();
+*/
+        Intent viewJokeIntent = new Intent(MainActivity.this, ViewJokeActivity.class);
+        viewJokeIntent.putExtra(ViewJokeActivity.INTENT_EXTRA_JOKE, getRandomJoke());
+        MainActivity.this.startActivity(viewJokeIntent);
     }
 
 
