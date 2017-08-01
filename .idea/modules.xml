@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GradleBigBuild.iml" filepath="$PROJECT_DIR$/GradleBigBuild.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JokeAppbackend/JokeAppbackend.iml" filepath="$PROJECT_DIR$/JokeAppbackend/JokeAppbackend.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/jokesdisplay/jokesdisplay.iml" filepath="$PROJECT_DIR$/jokesdisplay/jokesdisplay.iml" />
       <module fileurl="file://$PROJECT_DIR$/jokeslib/jokeslib.iml" filepath="$PROJECT_DIR$/jokeslib/jokeslib.iml" />
