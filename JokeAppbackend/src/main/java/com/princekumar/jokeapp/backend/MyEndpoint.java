@@ -9,6 +9,7 @@ package com.princekumar.jokeapp.backend;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
+import com.princekumar.jokelib.JokesMyClass;
 
 import javax.inject.Named;
 
@@ -35,6 +36,12 @@ public class MyEndpoint {
         response.setData("Hi, " + name);
 
         return response;
+    }
+
+    @ApiMethod(name = "getRandomJoke")
+    public Joke getRandomJoke() {
+
+        return new Joke(JokesMyClass.getRandomJoke());
     }
 
 

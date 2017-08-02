@@ -33,7 +33,7 @@ class FetchJokeTask extends AsyncTask<Pair<Context, String>, Void, String>   {
                     // options for running against local devappserver
                     // - 10.0.2.2 is localhost's IP address in Android emulator
                     // - turn off compression when running against local devappserver
-                    .setRootUrl("http://192.168.43.17:8080/_ah/api/")
+                    .setRootUrl("http://192.168.1.7:8080/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
                         public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
@@ -49,14 +49,16 @@ class FetchJokeTask extends AsyncTask<Pair<Context, String>, Void, String>   {
         String name = params[0].second;
 
         try {
-            data= myApiService.sayHi(name).execute().getData();
+            //data= myApiService.sayHi(name).execute().getData();
+            data= myApiService.getRandomJoke().execute().getText();
             Log.e(getClass().getName(),data);
         } catch (IOException e) {
-            //return e.getMessage();
+            e.printStackTrace();
+            return e.getMessage();
 
         }
-        Log.e(getClass().getName(),name);
-        return name;
+        Log.e(getClass().getName(),data);
+        return data;
 
     }
 
