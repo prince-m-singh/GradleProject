@@ -10,8 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.princekumar.builditbigger.R;
 import com.princekumar.jokesdisplay.ViewJokeActivity;
-import com.udacity.gradle.builditbigger.R;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -41,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        new FetchAndDisplayJokeTask(this).execute();
+        new AndDisplayJokeFetchTask(this).execute();
     }
 
-    private static class FetchAndDisplayJokeTask extends FetchJokeTask {
+    private static class AndDisplayJokeFetchTask extends JokeFetchTask {
         private final Context mContext;
 
-        public FetchAndDisplayJokeTask(Context context) {
+        public AndDisplayJokeFetchTask(Context context) {
             mContext = context;
         }
 
