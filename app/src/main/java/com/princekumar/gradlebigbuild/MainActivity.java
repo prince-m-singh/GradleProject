@@ -8,19 +8,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.princekumar.builditbigger.R;
 import com.princekumar.jokesdisplay.ViewJokeActivity;
 
 
-
 public class MainActivity extends AppCompatActivity {
+    private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        spinner = (ProgressBar) findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.GONE);
     }
 
 
@@ -42,10 +45,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
+        spinner.setVisibility(View.VISIBLE);
         new AndDisplayJokeFetchTask(this).execute();
     }
 
-    private static class AndDisplayJokeFetchTask extends JokeFetchTask {
+    private class AndDisplayJokeFetchTask extends JokeFetchTask {
         private final Context mContext;
 
         public AndDisplayJokeFetchTask(Context context) {
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(@Nullable String jokeText) {
+            spinner.setVisibility(View.GONE);
             if (jokeText == null) {
                 Toast.makeText(mContext, "Error fetching joke", Toast.LENGTH_SHORT).show();
                 return;
