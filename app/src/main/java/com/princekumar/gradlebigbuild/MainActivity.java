@@ -3,9 +3,8 @@ package com.princekumar.gradlebigbuild;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,10 +13,8 @@ import android.widget.Toast;
 import com.princekumar.jokesdisplay.ViewJokeActivity;
 import com.udacity.gradle.builditbigger.R;
 
-import static com.princekumar.jokelib.JokesMyClass.getRandomJoke;
 
-
-public class MainActivity extends AppCompatActivity implements ClickResponse {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +32,7 @@ public class MainActivity extends AppCompatActivity implements ClickResponse {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -49,35 +41,27 @@ public class MainActivity extends AppCompatActivity implements ClickResponse {
     }
 
     public void tellJoke(View view) {
-/*
-        Toast.makeText(this, getRandomJoke(), Toast.LENGTH_SHORT).show();
-*/
-
-
-        new FetchJokeTask(this).execute(new Pair<Context, String>(this, "Prince"));
-
+        new FetchAndDisplayJokeTask(this).execute();
     }
 
-    @Override
-    public void onGetSuccess(String data) {
-        Log.e(getClass().getName(),data);
-        Intent viewJokeIntent = new Intent(MainActivity.this, ViewJokeActivity.class);
-        viewJokeIntent.putExtra(ViewJokeActivity.INTENT_EXTRA_JOKE, data);
-        MainActivity.this.startActivity(viewJokeIntent);
+    private static class FetchAndDisplayJokeTask extends FetchJokeTask {
+        private final Context mContext;
+
+        public FetchAndDisplayJokeTask(Context context) {
+            mContext = context;
+        }
+
+        @Override
+        protected void onPostExecute(@Nullable String jokeText) {
+            if (jokeText == null) {
+                Toast.makeText(mContext, "Error fetching joke", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Intent viewJokeIntent = new Intent(mContext, ViewJokeActivity.class);
+            viewJokeIntent.putExtra(ViewJokeActivity.INTENT_EXTRA_JOKE, jokeText);
+            mContext.startActivity(viewJokeIntent);
+        }
+
+
     }
-
-    @Override
-    public void onError(String errorCode) {
-
-    }
-
-
-
-
 }
-
-interface ClickResponse {
-    public void onGetSuccess(String data);
-    public void onError(String errorCode);
-}
-
